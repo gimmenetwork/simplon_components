@@ -1,8 +1,8 @@
-# Allows installation of Components via [Composer](http://getcomposer.org).
+# Composer based installation of components
 
 ## PLEASE NOTE
 
-All fame belongs to `Rob Loach`. I simply needed a way to install `assets` and did not require any `requirejs`. Therefore, I pulled Rob's repo and made some adjustments.
+All fame belongs to `Rob Loach`. I simply needed a way to install `components` and did not require any `requirejs`. Therefore, I pulled Rob's repo and made some adjustments.
 
 ## See the original repo
 
