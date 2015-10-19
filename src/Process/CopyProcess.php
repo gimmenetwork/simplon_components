@@ -42,32 +42,27 @@ class CopyProcess extends Process
             $extra = isset($package['extra']) ? $package['extra'] : [];
 
             // Cycle through each asset type.
-            $fileType = ['scripts', 'styles', 'files'];
-            foreach ($fileType as $type)
+            if (empty($extra['component']['files']) === false)
             {
-                // Only act on the files if they're available.
-                if (isset($extra['component'][$type]) && is_array($extra['component'][$type]))
+                foreach ($extra['component']['files'] as $file)
                 {
-                    foreach ($extra['component'][$type] as $file)
+                    // Make sure the file itself is available.
+                    $source = $packageDir . DIRECTORY_SEPARATOR . $file;
+
+                    // Perform a recursive glob file search on the pattern.
+                    foreach ($this->fs->recursiveGlobFiles($source) as $filesource)
                     {
-                        // Make sure the file itself is available.
-                        $source = $packageDir . DIRECTORY_SEPARATOR . $file;
+                        // Find the final destination without the package directory.
+                        $withoutPackageDir = str_replace($packageDir . DIRECTORY_SEPARATOR, '', $filesource);
 
-                        // Perform a recursive glob file search on the pattern.
-                        foreach ($this->fs->recursiveGlobFiles($source) as $filesource)
-                        {
-                            // Find the final destination without the package directory.
-                            $withoutPackageDir = str_replace($packageDir . DIRECTORY_SEPARATOR, '', $filesource);
+                        // Construct the final file destination.
+                        $destination = $this->componentDir . DIRECTORY_SEPARATOR . $withoutPackageDir;
 
-                            // Construct the final file destination.
-                            $destination = $this->componentDir . DIRECTORY_SEPARATOR . $withoutPackageDir;
+                        // Ensure the directory is available.
+                        $this->fs->ensureDirectoryExists(dirname($destination));
 
-                            // Ensure the directory is available.
-                            $this->fs->ensureDirectoryExists(dirname($destination));
-
-                            // Copy the file to its destination.
-                            copy($filesource, $destination);
-                        }
+                        // Copy the file to its destination.
+                        copy($filesource, $destination);
                     }
                 }
             }
