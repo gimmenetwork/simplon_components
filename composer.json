@@ -1,5 +1,5 @@
 {
-  "name": "simplon/components",
+  "name": "gimmenetwork/simplon_components",
   "description": "Allows installation of Components via Composer.",
   "type": "composer-plugin",
   "license": "MIT",
