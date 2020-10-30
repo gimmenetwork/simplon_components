@@ -28,5 +28,8 @@
   "require-dev": {
     "composer/composer": "1.*@alpha",
     "phpunit/phpunit": "4.*"
+  },
+  "replace": {
+    "simplon/components": "1.0.x-dev"
   }
 }
