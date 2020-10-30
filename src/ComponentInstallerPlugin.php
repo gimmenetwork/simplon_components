@@ -14,6 +14,7 @@ namespace ComponentInstaller;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
+use React\Promise\Promise;
 
 /**
  * Composer Plugin to install Components.
@@ -33,7 +34,13 @@ class ComponentInstallerPlugin implements PluginInterface
         $composer->getInstallationManager()->addInstaller($installer);
     }
 
-    public function deactivate(Composer $composer, IOInterface $io) {}
+    public function deactivate(Composer $composer, IOInterface $io)
+    {
+        return new Promise(fn() => 0);
+    }
 
-    public function uninstall(Composer $composer, IOInterface $io) {}
+    public function uninstall(Composer $composer, IOInterface $io)
+    {
+        return new Promise(fn() => 0);
+    }
 }
